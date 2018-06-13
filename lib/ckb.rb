@@ -1,5 +1,7 @@
 require "ckb/version"
-require 'ckb/proto'
+
+# Auto-generated protobuf definitions
+require 'ckb/core_pb'
 
 module CKB
   # Your code goes here...
