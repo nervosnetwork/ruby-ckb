@@ -1,5 +1,5 @@
 require "ckb/version"
 
-module Ckb
+module CKB
   # Your code goes here...
 end
