@@ -8,3 +8,7 @@ Rake::TestTask.new(:test) do |t|
 end
 
 task :default => :test
+
+task :proto do
+  sh 'protoc --ruby_out=. lib/ckb/core.proto'
+end

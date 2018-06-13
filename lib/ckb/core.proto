@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+/* This file defines core types for CKB blockchain */
+
+message Recipient {
+  uint32 module = 1;
+  bytes lock = 2;
+}
+
+message OutPoint {
+  bytes hash = 1;
+  uint32 index = 2;
+}
+
+message CellInput {
+  OutPoint previous_output = 1;
+  bytes unlock = 2;
+}
+
+message CellOutput {
+  uint32 module = 1;
+  uint32 capacity = 2;
+  bytes data = 3;
+  bytes lock = 4;
+  Recipient recipient = 5;
+}
+
+message OperationGrouping {
+  uint32 transform_count = 1;
+  uint32 destroy_count = 2;
+  uint32 create_count = 3;
+}
+
+message Transaction {
+  uint32 version = 1;
+  repeated OutPoint deps = 2;
+  repeated CellInput inputs = 3;
+  repeated CellOutput outputs = 4;
+}
+
+message Header {
+  uint32 version = 1;
+  bytes parent_hash = 2;
+  uint64 timestamp = 3;
+  uint64 height = 4;
+  bytes transactions_root = 5;
+  bytes difficulty = 6;
+  uint64 nonce = 7;
+  bytes mix_hash = 8;
+}
+
+message Block {
+  Header block_header = 1;
+  repeated Transaction transactions = 2;
+}
