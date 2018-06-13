@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 /* This file defines core types for CKB blockchain */
+package CKB.Proto;
 
 message Recipient {
   uint32 module = 1;

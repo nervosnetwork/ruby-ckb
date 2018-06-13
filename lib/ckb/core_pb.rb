@@ -4,37 +4,37 @@
 require 'google/protobuf'
 
 Google::Protobuf::DescriptorPool.generated_pool.build do
-  add_message "Recipient" do
+  add_message "CKB.Proto.Recipient" do
     optional :module, :uint32, 1
     optional :lock, :bytes, 2
   end
-  add_message "OutPoint" do
+  add_message "CKB.Proto.OutPoint" do
     optional :hash, :bytes, 1
     optional :index, :uint32, 2
   end
-  add_message "CellInput" do
-    optional :previous_output, :message, 1, "OutPoint"
+  add_message "CKB.Proto.CellInput" do
+    optional :previous_output, :message, 1, "CKB.Proto.OutPoint"
     optional :unlock, :bytes, 2
   end
-  add_message "CellOutput" do
+  add_message "CKB.Proto.CellOutput" do
     optional :module, :uint32, 1
     optional :capacity, :uint32, 2
     optional :data, :bytes, 3
     optional :lock, :bytes, 4
-    optional :recipient, :message, 5, "Recipient"
+    optional :recipient, :message, 5, "CKB.Proto.Recipient"
   end
-  add_message "OperationGrouping" do
+  add_message "CKB.Proto.OperationGrouping" do
     optional :transform_count, :uint32, 1
     optional :destroy_count, :uint32, 2
     optional :create_count, :uint32, 3
   end
-  add_message "Transaction" do
+  add_message "CKB.Proto.Transaction" do
     optional :version, :uint32, 1
-    repeated :deps, :message, 2, "OutPoint"
-    repeated :inputs, :message, 3, "CellInput"
-    repeated :outputs, :message, 4, "CellOutput"
+    repeated :deps, :message, 2, "CKB.Proto.OutPoint"
+    repeated :inputs, :message, 3, "CKB.Proto.CellInput"
+    repeated :outputs, :message, 4, "CKB.Proto.CellOutput"
   end
-  add_message "Header" do
+  add_message "CKB.Proto.Header" do
     optional :version, :uint32, 1
     optional :parent_hash, :bytes, 2
     optional :timestamp, :uint64, 3
@@ -44,17 +44,21 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     optional :nonce, :uint64, 7
     optional :mix_hash, :bytes, 8
   end
-  add_message "Block" do
-    optional :block_header, :message, 1, "Header"
-    repeated :transactions, :message, 2, "Transaction"
+  add_message "CKB.Proto.Block" do
+    optional :block_header, :message, 1, "CKB.Proto.Header"
+    repeated :transactions, :message, 2, "CKB.Proto.Transaction"
   end
 end
 
-Recipient = Google::Protobuf::DescriptorPool.generated_pool.lookup("Recipient").msgclass
-OutPoint = Google::Protobuf::DescriptorPool.generated_pool.lookup("OutPoint").msgclass
-CellInput = Google::Protobuf::DescriptorPool.generated_pool.lookup("CellInput").msgclass
-CellOutput = Google::Protobuf::DescriptorPool.generated_pool.lookup("CellOutput").msgclass
-OperationGrouping = Google::Protobuf::DescriptorPool.generated_pool.lookup("OperationGrouping").msgclass
-Transaction = Google::Protobuf::DescriptorPool.generated_pool.lookup("Transaction").msgclass
-Header = Google::Protobuf::DescriptorPool.generated_pool.lookup("Header").msgclass
-Block = Google::Protobuf::DescriptorPool.generated_pool.lookup("Block").msgclass
+module CKB
+  module Proto
+    Recipient = Google::Protobuf::DescriptorPool.generated_pool.lookup("CKB.Proto.Recipient").msgclass
+    OutPoint = Google::Protobuf::DescriptorPool.generated_pool.lookup("CKB.Proto.OutPoint").msgclass
+    CellInput = Google::Protobuf::DescriptorPool.generated_pool.lookup("CKB.Proto.CellInput").msgclass
+    CellOutput = Google::Protobuf::DescriptorPool.generated_pool.lookup("CKB.Proto.CellOutput").msgclass
+    OperationGrouping = Google::Protobuf::DescriptorPool.generated_pool.lookup("CKB.Proto.OperationGrouping").msgclass
+    Transaction = Google::Protobuf::DescriptorPool.generated_pool.lookup("CKB.Proto.Transaction").msgclass
+    Header = Google::Protobuf::DescriptorPool.generated_pool.lookup("CKB.Proto.Header").msgclass
+    Block = Google::Protobuf::DescriptorPool.generated_pool.lookup("CKB.Proto.Block").msgclass
+  end
+end
