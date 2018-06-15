@@ -38,14 +38,14 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     optional :version, :uint32, 1
     optional :parent_hash, :bytes, 2
     optional :timestamp, :uint64, 3
-    optional :height, :uint64, 4
-    optional :transactions_root, :bytes, 5
+    optional :number, :uint64, 4
+    optional :txs_root, :bytes, 5
     optional :difficulty, :bytes, 6
     optional :nonce, :uint64, 7
     optional :mix_hash, :bytes, 8
   end
   add_message "CKB.Core.Block" do
-    optional :block_header, :message, 1, "CKB.Core.Header"
+    optional :header, :message, 1, "CKB.Core.Header"
     repeated :transactions, :message, 2, "CKB.Core.Transaction"
   end
 end

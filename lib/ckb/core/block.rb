@@ -2,11 +2,11 @@ module CKB
   module Core
     class Block
       def self.genesis
-        new(block_header: Header.genesis)
+        new(header: Header.genesis)
       end
 
       def self.build(
-          parent_hash, height, difficulty,
+          parent_hash, number, difficulty,
           timestamp: Time.now.to_i,
           nonce: 0, mix_hash: SHA3::NULL,
           transactions: []
@@ -15,18 +15,18 @@ module CKB
           version: Header::VERSION,
           parent_hash: parent_hash.to_s,
           timestamp: timestamp,
-          height: height,
+          number: number,
           difficulty: difficulty,
           nonce: nonce,
           mix_hash: mix_hash
         )
-        new(block_header: header, transactions: transactions)
+        new(header: header, transactions: transactions)
       end
 
       extend Forwardable
-      def_delegators :block_header, :hash,
+      def_delegators :header, :hash,
                      :version, :parent_hash, :timestamp,
-                     :height, :transactions_root, :difficulty,
+                     :number, :txs_root, :difficulty,
                      :nonce, :mix_hash
     end
   end

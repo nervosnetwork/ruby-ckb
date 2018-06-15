@@ -9,6 +9,6 @@ end
 
 task :default => :test
 
-task :proto do
+task :protobuf do
   sh "protoc --ruby_out=. #{Dir['lib/ckb/**/*.proto'].join(' ')}"
 end

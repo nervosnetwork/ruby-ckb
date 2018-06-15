@@ -11,8 +11,8 @@ module CKB
           version: VERSION,
           parent_hash: SHA3::NULL,
           timestamp: Time.now.to_i,
-          height: 0,
-          transactions_root: SHA3::NULL,
+          number: 0,
+          txs_root: SHA3::NULL,
           difficulty: GENESIS_DIFFICULTY,
           nonce: 0,
           mix_hash: SHA3::NULL

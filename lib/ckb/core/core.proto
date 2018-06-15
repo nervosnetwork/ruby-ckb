@@ -43,14 +43,14 @@ message Header {
   uint32 version = 1;
   bytes parent_hash = 2;
   uint64 timestamp = 3;
-  uint64 height = 4;
-  bytes transactions_root = 5;
+  uint64 number = 4;
+  bytes txs_root = 5;
   bytes difficulty = 6;
   uint64 nonce = 7;
   bytes mix_hash = 8;
 }
 
 message Block {
-  Header block_header = 1;
+  Header header = 1;
   repeated Transaction transactions = 2;
 }

@@ -58,7 +58,7 @@ module CKB
     end
 
     def init_indexer
-      @indexer = {} # mapping: head_hash => block_index(height => hash)
+      @indexer = {} # mapping: head_hash => block_index(number => hash)
       index = [@head]
       @indexer[@head.hash] = index
     end
@@ -69,7 +69,7 @@ module CKB
 
     def update_index_head(index_key, blk)
       index = @indexer[index_key]
-      raise ArgumentError, "invalid new head: new height=#{blk.height}, current height=#{index.last.height}" if blk.height != index.last.height + 1
+      raise ArgumentError, "invalid new head: new number=#{blk.number}, current number=#{index.last.number}" if blk.number != index.last.number + 1
 
       index.push blk
       @indexer[blk.hash] = index

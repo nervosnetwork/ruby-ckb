@@ -8,15 +8,15 @@ module CKB
       end
 
       def test_genesis_block
-        assert_equal 0, @genesis.block_header.height
-        assert_equal SHA3::NULL, @genesis.block_header.parent_hash
+        assert_equal 0, @genesis.header.number
+        assert_equal SHA3::NULL, @genesis.header.parent_hash
         assert_equal [], @genesis.transactions
       end
 
       def test_header_delegation
-        assert_equal 0, @genesis.height
+        assert_equal 0, @genesis.number
         assert_equal SHA3::NULL, @genesis.parent_hash
-        assert_equal SHA3::NULL, @genesis.transactions_root
+        assert_equal SHA3::NULL, @genesis.txs_root
       end
 
       def test_build_block
@@ -25,7 +25,7 @@ module CKB
         assert_equal SHA3::BYTES, blk.parent_hash.size
         assert_equal 4, blk.difficulty.size
         assert_equal [], blk.transactions
-        assert blk.height > 0, 'block height should be greater than 0'
+        assert blk.number > 0, 'block number should be greater than 0'
       end
     end
   end
