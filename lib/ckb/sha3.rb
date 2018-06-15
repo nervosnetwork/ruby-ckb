@@ -1,10 +1,9 @@
-require 'digest/sha3'
+require 'digest/sha3' # Keccak not FIPS 202
 
 module CKB
   module Core
-    # SHA3-256 (Keccak not FIPS 202)
-    class Hash < String
-      BYTES = 32
+    class SHA3 < String
+      BYTES = 32 # Default to SHA3-256
       BITS = BYTES * 8
       NULL = ("\x00".b * BYTES).freeze
 
@@ -12,7 +11,7 @@ module CKB
         new(Random.new.bytes(BYTES))
       end
 
-      def self.sha3_256(bytes)
+      def self.digest(bytes)
         new(Digest::SHA3.digest(bytes, BITS))
       end
 

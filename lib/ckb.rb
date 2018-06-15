@@ -1,6 +1,7 @@
 require "ckb/version"
 
-# Auto-generated protobuf definitions
+require 'ckb/sha3'
+
 require 'ckb/core'
 
 module CKB

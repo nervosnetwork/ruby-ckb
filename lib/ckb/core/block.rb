@@ -8,7 +8,7 @@ module CKB
       def self.build(
           parent_hash, height, difficulty,
           timestamp: Time.now.to_i,
-          nonce: 0, mix_hash: Hash::NULL,
+          nonce: 0, mix_hash: SHA3::NULL,
           transactions: []
         )
         header = Header.new(

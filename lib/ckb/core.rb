@@ -1,9 +1,6 @@
-# protobuf types
+# auto-generated protobuf types
 require_relative 'core/core_pb'
 
-# primitive types
-require_relative 'core/hash'
-
-# composite types
+# core types
 require_relative 'core/header'
 require_relative 'core/block'
