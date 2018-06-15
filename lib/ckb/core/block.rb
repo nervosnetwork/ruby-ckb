@@ -13,7 +13,7 @@ module CKB
         )
         header = Header.new(
           version: Header::VERSION,
-          parent_hash: parent_hash,
+          parent_hash: parent_hash.to_s,
           timestamp: timestamp,
           height: height,
           difficulty: difficulty,

@@ -22,7 +22,7 @@ module CKB
       def test_build_block
         blk = Block.build(Hash.random, rand(1..1000), Random.new.bytes(4))
         assert_equal Header::VERSION, blk.version
-        assert_equal Hash::LENGTH, blk.parent_hash.size
+        assert_equal Hash::BYTES, blk.parent_hash.size
         assert_equal 4, blk.difficulty.size
         assert_equal [], blk.transactions
         assert blk.height > 0, 'block height should be greater than 0'

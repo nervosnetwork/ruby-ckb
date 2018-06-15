@@ -3,6 +3,7 @@ PATH
   specs:
     ckb (0.1.0)
       celluloid (~> 0.17)
+      digest-sha3 (~> 1.1)
       google-protobuf (~> 3.5)
 
 GEM
@@ -27,6 +28,7 @@ GEM
     celluloid-supervision (0.20.6)
       timers (>= 4.1.1)
     coderay (1.1.2)
+    digest-sha3 (1.1.0)
     eventmachine (1.2.7)
     google-protobuf (3.5.1.2)
     hitimes (1.2.6)
