@@ -20,7 +20,7 @@ module CKB
 
       def test_header_hash
         assert_equal 32, @genesis.hash.size
-        # assert_equal @genesis.hex_hash, 
+        assert_equal 64, @genesis.hex_hash.size
       end
     end
   end

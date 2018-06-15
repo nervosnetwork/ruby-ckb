@@ -24,8 +24,9 @@ module CKB
       end
 
       extend Forwardable
-      def_delegators :block_header, :version, :parent_hash,
-                     :timestamp, :height, :transactions_root, :difficulty,
+      def_delegators :block_header, :hash,
+                     :version, :parent_hash, :timestamp,
+                     :height, :transactions_root, :difficulty,
                      :nonce, :mix_hash
     end
   end
