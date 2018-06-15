@@ -1,4 +1,5 @@
 module CKB
+  # Manages the block DAG
   class Chain
     attr_reader :head, :genesis
 
@@ -24,6 +25,29 @@ module CKB
       else # there's gap between new blk and our heads
         # TODO: fetch blocks. should just raise exceptions here
       end
+
+      self
+    end
+
+    def find(id)
+        case id
+        when Integer # find in main fork
+            find_in_main(id)
+        when String # find in DAG
+            id = SHA3.new(id) # validate sha3 hash
+            @db[id]
+        else
+            raise ArgumentError, "id must be block number or block hash"
+        end
+    end
+
+    def find_in_main(id)
+        case id
+        when Integer
+            get_main_index[id]
+        else
+            raise NotImplementedError
+        end
     end
 
     private
@@ -39,6 +63,10 @@ module CKB
       @indexer[@head.hash] = index
     end
 
+    def get_main_index
+        @indexer[@head.hash]
+    end
+
     def update_index_head(index_key, blk)
       index = @indexer[index_key]
       raise ArgumentError, "invalid new head: new height=#{blk.height}, current height=#{index.last.height}" if blk.height != index.last.height + 1
@@ -47,5 +75,6 @@ module CKB
       @indexer[blk.hash] = index
       @indexer.delete(index_key)
     end
+
   end
 end
