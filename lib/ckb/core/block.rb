@@ -25,10 +25,14 @@ module CKB
       end
 
       extend Forwardable
-      def_delegators :header, :hash,
+      def_delegators :header, :hash, :hex_hash,
                      :version, :parent_hash, :timestamp,
                      :number, :txs_root, :difficulty,
                      :nonce, :mix_hash
+
+      def to_s
+        "<Block##{number} 0x#{hex_hash[0,8]} v#{version} @#{timestamp}>"
+      end
     end
   end
 end

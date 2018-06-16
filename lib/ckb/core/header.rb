@@ -25,6 +25,10 @@ module CKB
       def hex_hash
         hash.to_hex
       end
+
+      def to_s
+        "<Header##{number} 0x#{hex_hash[0,8]} v#{version} @#{timestamp}>"
+      end
     end
   end
 end
