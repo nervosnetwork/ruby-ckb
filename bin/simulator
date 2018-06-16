@@ -6,7 +6,7 @@ require 'ckb'
 include CKB
 
 def solo_empty_chain
-  puts '[Scenario] a solo miner mining an empty chain'
+  CKB::Logger.info '*** solo mining on empty chain'
 
   node = Node.new
   node.run

@@ -1,6 +1,6 @@
 require "ckb/version"
 
-# ckb utils
+require 'ckb/logger'
 require 'ckb/util'
 require 'ckb/constants'
 require 'ckb/sha3'

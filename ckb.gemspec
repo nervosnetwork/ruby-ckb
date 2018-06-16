@@ -34,6 +34,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'google-protobuf', '~> 3.5'
   spec.add_dependency 'digest-sha3', '~> 1.1'
   spec.add_dependency 'rbczmq', '~> 1.7'
+  spec.add_dependency 'lumberjack', '~> 1.0'
 
   spec.add_development_dependency "bundler", "~> 1.16"
   spec.add_development_dependency "rake", "~> 10.0"

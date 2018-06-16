@@ -19,7 +19,7 @@ module CKB
         if blk.parent_hash == head.hash # new block on main fork
           update_index_head(@head.hash, blk)
           @head = blk
-          puts "[main fork] head updated #{@head}"
+          logger.info "main fork -> new head #{@head}"
         else # new block on some other forks
           # TODO: add block and apply fork choice rules
         end
@@ -52,6 +52,10 @@ module CKB
     end
 
     private
+
+    def logger
+      @logger ||= CKB.get_logger(self.class.name)
+    end
 
     def init_db
       @db = {} # mapping: hash => block

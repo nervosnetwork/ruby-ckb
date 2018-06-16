@@ -12,10 +12,16 @@ module CKB
         header.nonce = nonce
         header.mix_hash = mix_hash
 
-        puts "mined new block! #{header}"
+        logger.info "mined new block #{header}! " +
+          "difficulty=#{Util.encode_hex(header.difficulty)[0,8]} " +
+          "nonce=#{header.nonce} mix_hash=#{Util.encode_hex(header.mix_hash)[0,8]}"
       end
 
       private
+
+      def logger
+        @logger ||= CKB.get_logger(self.class.name)
+      end
 
       def adjust_difficulty(header, difficulty)
         # TODO: real difficulty adjustment
