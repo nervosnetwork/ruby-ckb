@@ -8,10 +8,10 @@ module CKB
       end
 
       def test_invalid_hash
-        assert_raises(ArgumentError) { SHA3.new('') }
-        assert_raises(ArgumentError) { SHA3.new('\x00') }
-        assert_raises(ArgumentError) { SHA3.new('\x00'*31) }
-        assert_raises(ArgumentError) { SHA3.new('\x00'*33) }
+        assert_raises(TypeError) { SHA3.new('') }
+        assert_raises(TypeError) { SHA3.new('\x00') }
+        assert_raises(TypeError) { SHA3.new('\x00'*31) }
+        assert_raises(TypeError) { SHA3.new('\x00'*33) }
       end
 
       def test_hash_empty_string

@@ -14,22 +14,22 @@ module CKB
     end
 
     def test_add_block
-      blk = Core::Block.build(@chain.genesis.hash, 1, Random.new.bytes(100))
+      blk = Core::Block.build(@chain.genesis.hash, 1)
       assert_equal 1, blk.number
 
       assert_equal 0, @chain.head.number
       @chain.add_block(blk)
       assert_equal 1, @chain.head.number
 
-      blk = Core::Block.build(blk.hash, 2, Random.new.bytes(100))
+      blk = Core::Block.build(blk.hash, 2)
       @chain.add_block(blk)
       assert_equal 2, @chain.head.number
       assert_equal 0, @chain.genesis.number
     end
 
     def test_find_block_by_hash
-        blk1 = Core::Block.build(@chain.genesis.hash, 1, Random.new.bytes(5))
-        blk2 = Core::Block.build(blk1.hash, 2, Random.new.bytes(6))
+        blk1 = Core::Block.build(@chain.genesis.hash, 1)
+        blk2 = Core::Block.build(blk1.hash, 2)
         @chain.add_block(blk1).add_block(blk2)
 
         assert_equal 1, @chain.find(blk1.hash).number
@@ -37,8 +37,8 @@ module CKB
     end
 
     def test_find_block_by_number
-        blk1 = Core::Block.build(@chain.genesis.hash, 1, Random.new.bytes(5))
-        blk2 = Core::Block.build(blk1.hash, 2, Random.new.bytes(6))
+        blk1 = Core::Block.build(@chain.genesis.hash, 1)
+        blk2 = Core::Block.build(blk1.hash, 2)
         @chain.add_block(blk1).add_block(blk2)
 
         assert_equal blk1.hash, @chain.find(1).hash

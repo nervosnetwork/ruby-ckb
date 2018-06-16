@@ -15,13 +15,14 @@ module CKB
     end
 
     def initialize(bytes)
-      raise ArgumentError, "hash must be #{BYTES} bytes" if bytes.size != BYTES
-      raise ArgumentError, 'hash must be ASCII-8BIT encoded bytes' if bytes.encoding != Encoding::ASCII_8BIT
+      bytes = bytes.to_s if bytes.instance_of?(self.class)
+      raise TypeError, 'hash must be ASCII-8BIT encoded bytes' unless Util.bytes?(bytes)
+      raise TypeError, "hash must be #{BYTES} bytes" if bytes.size != BYTES
       super(bytes)
     end
 
     def to_hex
-      unpack('H*').first
+      Util.encode_hex(self)
     end
   end
 end

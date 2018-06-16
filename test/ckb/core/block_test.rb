@@ -20,10 +20,9 @@ module CKB
       end
 
       def test_build_block
-        blk = Block.build(SHA3.random, rand(1..1000), Random.new.bytes(4))
+        blk = Block.build(SHA3.random, rand(1..1000))
         assert_equal Header::VERSION, blk.version
         assert_equal SHA3::BYTES, blk.parent_hash.size
-        assert_equal 4, blk.difficulty.size
         assert_equal [], blk.transactions
         assert blk.number > 0, 'block number should be greater than 0'
       end

@@ -6,7 +6,8 @@ module CKB
       end
 
       def self.build(
-          parent_hash, number, difficulty,
+          parent_hash, number,
+          difficulty: EMPTY_BYTE,
           timestamp: Time.now.to_i,
           nonce: 0, mix_hash: SHA3::NULL,
           transactions: []

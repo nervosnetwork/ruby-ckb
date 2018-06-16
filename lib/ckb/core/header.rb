@@ -4,7 +4,6 @@ module CKB
   module Core
     class Header
       VERSION = 0x1
-      GENESIS_DIFFICULTY = "\x10\x00\x00\x00".freeze
 
       def self.genesis
         new(

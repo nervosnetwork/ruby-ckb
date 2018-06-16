@@ -13,7 +13,7 @@ module CKB
         assert (0..1).cover?(@genesis.timestamp - Time.now.to_i), 'abnormal timestamp'
         assert_equal 0, @genesis.number
         assert_equal SHA3::NULL, @genesis.txs_root
-        assert_equal Header::GENESIS_DIFFICULTY, @genesis.difficulty
+        assert_equal GENESIS_DIFFICULTY, @genesis.difficulty
         assert_equal 0, @genesis.nonce
         assert_equal SHA3::NULL, @genesis.mix_hash
       end
