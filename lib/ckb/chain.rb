@@ -19,6 +19,7 @@ module CKB
         if blk.parent_hash == head.hash # new block on main fork
           update_index_head(@head.hash, blk)
           @head = blk
+          puts "[main fork] head updated #{@head}"
         else # new block on some other forks
           # TODO: add block and apply fork choice rules
         end

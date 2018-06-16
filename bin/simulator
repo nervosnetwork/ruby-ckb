@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+
+require 'bundler/setup'
+
+require 'ckb'
+include CKB
+
+def solo_empty_chain
+  puts '[Scenario] a solo miner mining an empty chain'
+
+  node = Node.new
+  node.run
+end
+
+solo_empty_chain
