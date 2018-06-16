@@ -2,36 +2,18 @@ PATH
   remote: .
   specs:
     ckb (0.1.0)
-      celluloid (~> 0.17)
       digest-sha3 (~> 1.1)
       google-protobuf (~> 3.5)
+      rbczmq (~> 1.7)
 
 GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.0)
-    celluloid (0.17.3)
-      celluloid-essentials
-      celluloid-extras
-      celluloid-fsm
-      celluloid-pool
-      celluloid-supervision
-      timers (>= 4.1.1)
-    celluloid-essentials (0.20.5)
-      timers (>= 4.1.1)
-    celluloid-extras (0.20.5)
-      timers (>= 4.1.1)
-    celluloid-fsm (0.20.5)
-      timers (>= 4.1.1)
-    celluloid-pool (0.20.5)
-      timers (>= 4.1.1)
-    celluloid-supervision (0.20.6)
-      timers (>= 4.1.1)
     coderay (1.1.2)
     digest-sha3 (1.1.0)
     eventmachine (1.2.7)
     google-protobuf (3.5.1.2)
-    hitimes (1.2.6)
     htmlentities (4.3.4)
     jaro_winkler (1.5.1)
     kramdown (1.17.0)
@@ -45,6 +27,7 @@ GEM
     powerpack (0.1.2)
     rainbow (3.0.0)
     rake (10.5.0)
+    rbczmq (1.7.9)
     reverse_markdown (1.1.0)
       nokogiri
     rubocop (0.57.2)
@@ -69,8 +52,6 @@ GEM
       yard (~> 0.9)
     thor (0.20.0)
     tilt (2.0.8)
-    timers (4.1.2)
-      hitimes
     unicode-display_width (1.4.0)
     yard (0.9.14)
 
