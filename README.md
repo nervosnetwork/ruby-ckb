@@ -1,8 +1,33 @@
-# CKB
+# Nervos CKB
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/ckb`. To experiment with that code, run `bin/console` for an interactive prompt.
+Nervos CKB (Common Knowledge Base) is a permissionless blockchain, the secure state layer of Nervos Network.
 
-TODO: Delete this and the text above, and describe your gem
+* [Nervos CKB Whitepaper](https://github.com/NervosFoundation/binary/tree/master/whitepaper)
+
+## TODO
+
+- [] Chain
+    - [] Tree
+        - [] fork management
+    - [] Block
+        - [] Header
+            - [] Schema
+            - [] Validation
+        - [] Schema
+        - [] Validation
+    - [] Transaction
+        - [] Schema
+        - [] Validation
+    - [] Transaction Pool
+    - [] Cell
+    - [] VM
+- [] Miner
+    - [] Dummy Miner
+    - [] Cuckoo Miner
+- [] Network
+    - [] P2P transport
+    - [] Wire protocol
+- [] RPC Server
 
 ## Installation
 
