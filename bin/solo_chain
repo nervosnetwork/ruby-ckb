@@ -5,11 +5,11 @@ require 'bundler/setup'
 require 'ckb'
 include CKB
 
-def solo_empty_chain
-  CKB::Logger.info '*** solo mining on empty chain'
+def solo_chain
+  CKB::Logger.info '*** solo mining private chain'
 
   node = Node.new
   node.run
 end
 
-solo_empty_chain
+solo_chain

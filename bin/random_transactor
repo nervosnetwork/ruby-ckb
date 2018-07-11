@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+
+require 'bundler/setup'
+
+require 'ckb'
+include CKB
+
+def send_tx(i)
+  CKB::Logger.info "sent tx #{i}"
+
+  tx = Core::Transaction.new()
+  tx.sign()
+  client.send(tx)
+end
+
+num = ARGV.size > 0 ? ARGV[0].to_i : 10
+num.times do |i|
+  sleep rand
+  send_tx(i)
+end
