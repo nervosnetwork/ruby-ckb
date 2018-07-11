@@ -8,6 +8,9 @@ require 'ckb/sha3'
 # ckb core types
 require 'ckb/core'
 
+# storage backends
+require 'ckb/db'
+
 # ckb components
 require 'ckb/chain'
 require 'ckb/pow'
