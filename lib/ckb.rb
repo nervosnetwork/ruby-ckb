@@ -7,6 +7,7 @@ require 'ckb/sha3'
 
 # ckb core types
 require 'ckb/core'
+require 'ckb/mpt'
 
 # storage backends
 require 'ckb/db'
