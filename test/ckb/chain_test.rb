@@ -18,11 +18,11 @@ module CKB
       assert_equal 1, blk.number
 
       assert_equal 0, @chain.head.number
-      @chain.add_block(blk)
+      @chain.add_block!(blk)
       assert_equal 1, @chain.head.number
 
       blk = Core::Block.build(blk.hash, 2)
-      @chain.add_block(blk)
+      @chain.add_block!(blk)
       assert_equal 2, @chain.head.number
       assert_equal 0, @chain.genesis.number
     end
@@ -30,19 +30,10 @@ module CKB
     def test_find_block_by_hash
         blk1 = Core::Block.build(@chain.genesis.hash, 1)
         blk2 = Core::Block.build(blk1.hash, 2)
-        @chain.add_block(blk1).add_block(blk2)
+        @chain.add_block!(blk1).add_block!(blk2)
 
         assert_equal 1, @chain.find(blk1.hash).number
         assert_equal 2, @chain.find(blk2.hash).number
-    end
-
-    def test_find_block_by_number
-        blk1 = Core::Block.build(@chain.genesis.hash, 1)
-        blk2 = Core::Block.build(blk1.hash, 2)
-        @chain.add_block(blk1).add_block(blk2)
-
-        assert_equal blk1.hash, @chain.find(1).hash
-        assert_equal blk2.hash, @chain.find(2).hash
     end
   end
 end
