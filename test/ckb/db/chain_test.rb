@@ -25,7 +25,7 @@ module CKB
         blk = Core::Block.genesis
         @db.put blk.header
 
-        assert_equal nil, @db.get_block(blk.hash)
+        assert_nil @db.get_block(blk.hash)
         assert_equal blk.header, @db.get_header(blk.hash)
       end
 

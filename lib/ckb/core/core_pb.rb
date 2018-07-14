@@ -37,7 +37,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     optional :parent_hash, :bytes, 2
     optional :timestamp, :uint64, 3
     optional :number, :uint64, 4
-    optional :txs_root, :bytes, 5
+    optional :txroot, :bytes, 5
     optional :difficulty, :bytes, 6
     optional :nonce, :uint64, 7
     optional :mix_hash, :bytes, 8

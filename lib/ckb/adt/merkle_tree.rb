@@ -6,7 +6,7 @@ module CKB
     # Bitcoin style double-hashing merkle tree
     # https://en.bitcoin.it/wiki/Protocol_documentation#Merkle_Trees
     class MerkleTree
-      EMPTY_ROOT = SHA3.double('').freeze
+      EMPTY_ROOT = SHA3.double('').to_s.freeze
 
       attr :values
 

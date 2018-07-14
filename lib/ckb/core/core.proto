@@ -42,7 +42,7 @@ message Header {
   bytes parent_hash = 2;
   uint64 timestamp = 3;
   uint64 number = 4;
-  bytes txs_root = 5;
+  bytes txroot = 5;
   bytes difficulty = 6;
   uint64 nonce = 7;
   bytes mix_hash = 8;

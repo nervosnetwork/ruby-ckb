@@ -16,7 +16,7 @@ module CKB
       def test_header_delegation
         assert_equal 0, @genesis.number
         assert_equal SHA3::NULL, @genesis.parent_hash
-        assert_equal SHA3::NULL, @genesis.txs_root
+        assert_equal SHA3::NULL, @genesis.txroot
       end
 
       def test_build_block
@@ -31,14 +31,15 @@ module CKB
         tx1 = Transaction.build_cellbase(1, SHA3.random.to_s)
         blk = Block.build(SHA3.random.to_s, 1, transactions: [tx1])
         assert_equal [tx1], blk.transactions
+        assert_equal ADT::MerkleTree.new([tx1]).root, blk.txroot
 
         input = CellInput.build(SHA3.random.to_s, 0, SHA3.random.to_s)
         output = CellOutput.build(100, SHA3.random.to_s)
         tx2 = Transaction.build(inputs: [input], outputs: [output])
         blk.transactions = [tx1, tx2]
         assert_equal [tx1, tx2], blk.transactions
+        assert_equal ADT::MerkleTree.new([tx1, tx2]).root, blk.txroot
       end
-
     end
   end
 end

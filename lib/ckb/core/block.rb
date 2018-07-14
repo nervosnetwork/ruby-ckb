@@ -5,13 +5,7 @@ module CKB
         new(header: Header.genesis)
       end
 
-      def self.build(
-          parent_hash, number,
-          difficulty: EMPTY_BYTE,
-          timestamp: Time.now.to_i,
-          nonce: 0, mix_hash: SHA3::NULL,
-          transactions: []
-        )
+      def self.build(parent_hash, number, difficulty: EMPTY_BYTE, timestamp: Time.now.to_i, nonce: 0, mix_hash: SHA3::NULL, transactions: [])
         header = Header.new(
           version: Header::VERSION,
           parent_hash: parent_hash,
@@ -21,17 +15,22 @@ module CKB
           nonce: nonce,
           mix_hash: mix_hash
         )
-        new(header: header, transactions: transactions)
+
+        new(header: header).tap do |blk|
+          blk.transactions = transactions
+        end
       end
 
       extend Forwardable
       def_delegators :header, :hash, :hex_hash,
                      :version, :parent_hash, :timestamp,
-                     :number, :txs_root, :difficulty,
+                     :number, :txroot, :difficulty,
                      :nonce, :mix_hash
 
       def transactions=(txs)
+        validate_transactions!(txs)
         self['transactions'].replace(txs)
+        self.header.txroot = ADT::MerkleTree.new(txs).root
       end
 
       def valid?
@@ -44,10 +43,12 @@ module CKB
 
       private
 
-      def cellbase_valid?
+      def validate_cellbase!
+        # TODO
       end
 
-      def txs_valid?
+      def validate_transactions!(txs)
+        # TODO
       end
 
     end
