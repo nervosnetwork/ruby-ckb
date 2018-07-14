@@ -16,7 +16,7 @@ module CKB
       def test_header_delegation
         assert_equal 0, @genesis.number
         assert_equal SHA3::NULL, @genesis.parent_hash
-        assert_equal SHA3::NULL, @genesis.txroot
+        assert_equal ADT::MerkleTree::EMPTY_ROOT, @genesis.txroot
       end
 
       def test_build_block
@@ -25,6 +25,17 @@ module CKB
         assert_equal SHA3::BYTES, blk.parent_hash.size
         assert_equal [], blk.transactions
         assert blk.number > 0, 'block number should be greater than 0'
+      end
+
+      def test_build_candidate
+        lockhash = SHA3.random.to_s
+        blk = Block.build_candidate(@genesis.header, lockhash, [])
+        assert_equal Header::VERSION, blk.version
+        assert_equal @genesis.hash, blk.parent_hash
+        assert_equal 1, blk.number
+        assert_equal 1, blk.transactions.size
+        assert_equal 1, Util.big_endian_to_int(blk.transactions[0].inputs[0].unlock)
+        assert_equal lockhash, blk.transactions[0].outputs[0].lockhash
       end
 
       def test_set_transactions
