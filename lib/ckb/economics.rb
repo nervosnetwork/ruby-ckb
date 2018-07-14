@@ -1,21 +1,15 @@
 module CKB
+  # Constants defined in economics can be modified by on-chain governance
   module Economics
     extend self
 
-    def total_capacity
-      33_600_000_000_000 # Bytes
-    end
+    TOTAL_CAPACITY = 33_600_000_000_000 # Bytes
 
-    def reward_epoch_length
-      3_000_000
-    end
-
-    def reward_percent
-      0.5
-    end
+    REWARD_EPOCH_LENGTH = 3_000_000
+    REWARD_PERCENT = 0.5
 
     def block_reward(blknum)
-      ((total_capacity*reward_percent) / reward_epoch_length) / 2**(blknum / reward_epoch_length)
+      ((TOTAL_CAPACITY*REWARD_PERCENT) / REWARD_EPOCH_LENGTH) / 2**(blknum / REWARD_EPOCH_LENGTH)
     end
   end
 end

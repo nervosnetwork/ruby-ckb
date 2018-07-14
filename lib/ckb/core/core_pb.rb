@@ -17,11 +17,9 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     optional :unlock, :bytes, 2
   end
   add_message "CKB.Core.CellOutput" do
-    optional :module, :uint32, 1
-    optional :capacity, :uint32, 2
-    optional :data, :bytes, 3
-    optional :lock, :bytes, 4
-    optional :recipient, :message, 5, "CKB.Core.Recipient"
+    optional :capacity, :uint32, 1
+    optional :data, :bytes, 2
+    optional :lockhash, :bytes, 3
   end
   add_message "CKB.Core.OperationGrouping" do
     optional :transform_count, :uint32, 1

@@ -5,4 +5,6 @@ module CKB
   UINT256_MAX = 2**256 - 1
 
   GENESIS_DIFFICULTY = Util.int_to_big_endian(1984).freeze
+
+  LOCKHASH_RANGE = 32..256
 end
