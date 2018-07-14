@@ -5,6 +5,9 @@ require 'ckb/util'
 require 'ckb/constants'
 require 'ckb/sha3'
 
+# economics
+require 'ckb/economics'
+
 # ckb core types
 require 'ckb/core'
 require 'ckb/mpt'
