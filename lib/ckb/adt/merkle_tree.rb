@@ -16,30 +16,26 @@ module CKB
       end
 
       def root
-        @root ||= generate_root
+        @root ||= hash_row(@values.map {|v|
+          SHA3.double(v.respond_to?(:to_proto) ? v.to_proto : v)
+        })
       end
 
       private
 
-      def generate_root
-        return EMPTY_ROOT if @values.empty?
+      def hash_row(hashes)
+        return EMPTY_ROOT if hashes.empty?
+        return hashes[0].to_s if hashes.size == 1
 
-        hashes = @values.map {|v| SHA3.double(v.respond_to?(:to_proto) ? v.to_proto : v) }
-
-        while hashes.size > 1
-          hashes.push(hashes.last) if hashes.size.odd?
-
-          parents = []
-          loop do
-            pair = hashes.shift(2)
-            break if pair.empty?
-            parents.push SHA3.double(pair.join)
-          end
-
-          hashes = parents
+        hashes.push(hashes.last) if hashes.size.odd?
+        parent_row = []
+        loop do
+          pair = hashes.shift(2)
+          break if pair.empty?
+          parent_row.push SHA3.double(pair.join)
         end
 
-        hashes[0].to_s
+        hash_row(parent_row)
       end
 
     end
