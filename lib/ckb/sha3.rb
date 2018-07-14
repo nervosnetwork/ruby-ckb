@@ -14,6 +14,10 @@ module CKB
       new(Digest::SHA3.digest(bytes, BITS))
     end
 
+    def self.double(bytes)
+      digest digest(bytes)
+    end
+
     def initialize(bytes)
       bytes = bytes.to_s if bytes.instance_of?(self.class)
       raise TypeError, 'hash must be ASCII-8BIT encoded bytes' unless Util.bytes?(bytes)
