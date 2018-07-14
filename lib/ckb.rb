@@ -10,7 +10,9 @@ require 'ckb/economics'
 
 # ckb core types
 require 'ckb/core'
-require 'ckb/mpt'
+
+# ckb authenticated data types
+require 'ckb/adt'
 
 # storage backends
 require 'ckb/db'

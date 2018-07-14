@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package CKB;
+package CKB.ADT;
 
 message MPTNode {
   repeated bytes values = 1;

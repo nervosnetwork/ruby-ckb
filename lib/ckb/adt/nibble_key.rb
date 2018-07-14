@@ -1,5 +1,5 @@
 module CKB
-  class MPT
+  module ADT
 
     # Nibble is half-byte.
     class NibbleKey < Array

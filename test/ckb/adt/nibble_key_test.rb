@@ -1,7 +1,8 @@
 require 'test_helper'
 
 module CKB
-  class MPT
+  module ADT
+
     class NibbleKeyTest < Minitest::Test
       def test_from_string
         assert_equal NibbleKey, NibbleKey.from_string('').class
@@ -63,5 +64,6 @@ module CKB
         assert_equal NibbleKey, new_key.class
       end
     end
+
   end
 end
