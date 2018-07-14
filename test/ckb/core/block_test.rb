@@ -20,12 +20,25 @@ module CKB
       end
 
       def test_build_block
-        blk = Block.build(SHA3.random, rand(1..1000))
+        blk = Block.build(SHA3.random.to_s, rand(1..1000))
         assert_equal Header::VERSION, blk.version
         assert_equal SHA3::BYTES, blk.parent_hash.size
         assert_equal [], blk.transactions
         assert blk.number > 0, 'block number should be greater than 0'
       end
+
+      def test_set_transactions
+        tx1 = Transaction.build_cellbase(1, SHA3.random.to_s)
+        blk = Block.build(SHA3.random.to_s, 1, transactions: [tx1])
+        assert_equal [tx1], blk.transactions
+
+        input = CellInput.build(SHA3.random.to_s, 0, SHA3.random.to_s)
+        output = CellOutput.build(100, SHA3.random.to_s)
+        tx2 = Transaction.build(inputs: [input], outputs: [output])
+        blk.transactions = [tx1, tx2]
+        assert_equal [tx1, tx2], blk.transactions
+      end
+
     end
   end
 end

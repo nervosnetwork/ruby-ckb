@@ -14,7 +14,7 @@ module CKB
         )
         header = Header.new(
           version: Header::VERSION,
-          parent_hash: parent_hash.to_s,
+          parent_hash: parent_hash,
           timestamp: timestamp,
           number: number,
           difficulty: difficulty,
@@ -30,9 +30,26 @@ module CKB
                      :number, :txs_root, :difficulty,
                      :nonce, :mix_hash
 
+      def transactions=(txs)
+        self['transactions'].replace(txs)
+      end
+
+      def valid?
+        header.valid? && cellbase_valid? && txs_valid?
+      end
+
       def to_s
         "<Block##{number} 0x#{hex_hash[0,8]} v#{version} @#{timestamp}>"
       end
+
+      private
+
+      def cellbase_valid?
+      end
+
+      def txs_valid?
+      end
+
     end
   end
 end

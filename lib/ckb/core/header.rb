@@ -18,12 +18,15 @@ module CKB
         )
       end
 
+      def valid?
+      end
+
       def hash
-        SHA3.digest(self.class.encode(self))
+        SHA3.digest(self.class.encode(self)).to_s
       end
 
       def hex_hash
-        hash.to_hex
+        SHA3.digest(self.class.encode(self)).to_hex
       end
 
       def to_s
