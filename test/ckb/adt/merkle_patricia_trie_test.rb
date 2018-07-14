@@ -5,9 +5,9 @@ require 'test_helper'
 module CKB
   module ADT
 
-    class MPTTest < Minitest::Test
+    class MerklePatriciaTrieTest < Minitest::Test
       def setup
-        @mpt = MPT.new DB::Memory.new
+        @mpt = MerklePatriciaTrie.new DB::Memory.new
       end
 
       def test_to_hash

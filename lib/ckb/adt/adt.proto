@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package CKB.ADT;
+
+message ValueNode {
+  repeated bytes value = 1;
+}

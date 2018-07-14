@@ -1,12 +1,11 @@
-require 'ckb/adt/mpt_pb'
+require 'ckb/adt/adt_pb'
 require 'ckb/adt/nibble_key'
 
 require 'pry'
 
 module CKB
   module ADT
-    # Merkle Patricia Trie
-    class MPT
+    class MerklePatriciaTrie
       include Enumerable
 
       NODE_TYPES = %i(blank leaf extension branch).freeze
@@ -17,7 +16,7 @@ module CKB
       KV_WIDTH = 2
 
       BLANK_NODE = "".freeze
-      BLANK_ROOT = SHA3.digest(MPTNode.encode(MPTNode.new)).to_s.freeze
+      BLANK_ROOT = SHA3.digest(ValueNode.encode(ValueNode.new)).to_s.freeze
 
       class InvalidNode < StandardError; end
       class InvalidNodeType < StandardError; end
@@ -43,7 +42,7 @@ module CKB
 
         raise InvalidNode, "invalid root node" unless @root_node.instance_of?(Array)
 
-        val = MPTNode.encode MPTNode.new(values: @root_node)
+        val = ValueNode.new(value: @root_node).to_proto
         key = SHA3.digest(val).to_s
 
         @db.put key, val
@@ -219,7 +218,7 @@ module CKB
         return BLANK_NODE if node == BLANK_NODE
         raise ArgumentError, "node must be an array" unless node.instance_of?(Array)
 
-        node_proto = MPTNode.encode MPTNode.new(values: node)
+        node_proto = ValueNode.new(value: node).to_proto
         return node if node_proto.size < 32
 
         hashkey = SHA3.digest(node_proto).to_s
@@ -231,7 +230,7 @@ module CKB
         return BLANK_NODE if encoded == BLANK_NODE
         return encoded if encoded.instance_of?(Array)
 
-        MPTNode.decode(@db.get(encoded)).values.to_a
+        ValueNode.decode(@db.get(encoded)).value.to_a
       end
 
       # TODO: refactor, abstract delete storage logic
