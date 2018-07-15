@@ -8,6 +8,9 @@ require 'ckb/sha3'
 # economics
 require 'ckb/economics'
 
+# ckb verification rules
+require 'ckb/verifiable'
+
 # ckb core types
 require 'ckb/core'
 

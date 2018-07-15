@@ -3,10 +3,12 @@ require 'digest/sha3'
 module CKB
   module Core
     class Header
+      include Verifiable::Methods
+
       VERSION = 0x1
 
       def self.genesis
-        new(
+        build(
           version: VERSION,
           parent_hash: SHA3::NULL,
           timestamp: Time.now.to_i,
@@ -18,7 +20,12 @@ module CKB
         )
       end
 
-      def valid?
+      def self.build(*args)
+        @verifiers = [
+          Verifiable::HeaderVerifier.new(self)
+        ]
+
+        new(*args)
       end
 
       def hash
