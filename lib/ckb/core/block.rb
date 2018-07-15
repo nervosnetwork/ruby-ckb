@@ -58,7 +58,7 @@ module CKB
       def to_s
         "<Block#%d 0x%s v%d @%d cellbase=0x%s txroot=0x%s txcount=%d>" % [
           number, hex_hash[0,8], version, timestamp,
-          Util.encode_hex(cellbase.outputs[0].lockhash)[0,8],
+          cellbase && Util.encode_hex(cellbase.outputs[0].lockhash)[0,8],
           Util.encode_hex(txroot)[0,8], transactions.size-1
         ]
       end
