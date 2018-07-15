@@ -6,7 +6,8 @@ module CKB
       end
 
       def verify!
-        #header.valid? && cellbase_valid? && txs_valid?
+        @target.header.verify!
+        @target.transactions.each {|tx| tx.verify! }
       end
     end
   end
