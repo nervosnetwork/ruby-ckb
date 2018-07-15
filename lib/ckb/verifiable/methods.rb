@@ -2,7 +2,7 @@ module CKB
   module Verifiable
     module Methods
       def verify!
-        @verifiers.each {|verifier| verifier.verify! }
+        _verifiers.each {|v| v.verify! }
       end
     end
   end

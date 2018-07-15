@@ -21,9 +21,7 @@ module CKB
       end
 
       def self.build(*args)
-        @verifiers = [
-          Verifiable::HeaderVerifier.new(self)
-        ]
+        @verifiers = [ Verifiable::HeaderVerifier.new(self) ]
 
         new(*args)
       end

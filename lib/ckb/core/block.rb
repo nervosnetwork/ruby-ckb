@@ -41,18 +41,15 @@ module CKB
                      :number, :txroot, :difficulty,
                      :nonce, :mix_hash
 
+      include Verifiable::Methods
+
       def cellbase
         transactions[0]
       end
 
       def transactions=(txs)
-        validate_transactions!(txs)
         self['transactions'].replace(txs)
         self.header.txroot = ADT::MerkleTree.new(txs).root
-      end
-
-      def valid?
-        header.valid? && cellbase_valid? && txs_valid?
       end
 
       def to_s
@@ -65,12 +62,8 @@ module CKB
 
       private
 
-      def validate_cellbase!
-        # TODO
-      end
-
-      def validate_transactions!(txs)
-        # TODO
+      def _verifiers
+        @verifiers = [ Verifiable::BlockVerifier.new(self) ]
       end
 
     end

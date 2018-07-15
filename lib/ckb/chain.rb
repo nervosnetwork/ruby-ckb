@@ -36,7 +36,8 @@ module CKB
     end
 
     def verify_block!(blk)
-      #TODO
+      blk.verify!
+      block_ctx_verifier.verify!(blk)
     end
 
     def find(id)
@@ -54,6 +55,10 @@ module CKB
 
     def logger
       @logger ||= CKB.get_logger(self.class.name)
+    end
+
+    def block_ctx_verifier
+      @block_ctx_verifier ||= Verifiable::BlockCtxVerifier.new(Verifiable::Context.new(self))
     end
 
   end
