@@ -12,12 +12,12 @@ module CKB
       end
 
       def put_ckb_core_block(blk)
-        @db.put key(blk.header), Core::Header.encode(blk.header)
-        @db.put key(blk), blk.class.encode(blk)
+        @db.put key(blk.header), blk.header.serialize!
+        @db.put key(blk), blk.serialize!
       end
 
       def put_ckb_core_header(hdr)
-        @db.put key(hdr), hdr.class.encode(hdr)
+        @db.put key(hdr), hdr.serialize!
       end
 
       def get(k)

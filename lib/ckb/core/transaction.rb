@@ -21,11 +21,11 @@ module CKB
       end
 
       def hash
-        SHA3.digest(self.class.encode(self)).to_s
+        SHA3.digest(to_proto).to_s
       end
 
       def hex_hash
-        SHA3.digest(self.class.encode(self)).to_hex
+        SHA3.digest(to_proto).to_hex
       end
 
       def to_s
