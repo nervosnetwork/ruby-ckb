@@ -19,7 +19,7 @@ module CKB
         end
 
         def build(parent_hash, number, difficulty: EMPTY_BYTE, timestamp: Time.now.to_i, nonce: 0, mix_hash: SHA3::NULL, transactions: [])
-          header = Header.new(
+          header = Header.build(
             version: Header::VERSION,
             parent_hash: parent_hash,
             timestamp: timestamp,

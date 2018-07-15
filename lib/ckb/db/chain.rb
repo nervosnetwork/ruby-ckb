@@ -32,6 +32,8 @@ module CKB
 
       def get_header(h)
         get hdr_key(h)
+      rescue
+        nil
       end
 
       def delete(k)

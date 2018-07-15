@@ -1,7 +1,7 @@
 module CKB
   # Manages the block DAG
   class Chain
-    attr_reader :head, :genesis
+    attr_reader :head, :genesis, :store, :fork
 
     def initialize
       @head = @genesis = Core::Block.genesis
@@ -37,7 +37,7 @@ module CKB
 
     def verify_block!(blk)
       blk.verify!
-      block_ctx_verifier.verify!(blk)
+      Verifiable::BlockCtxVerifier.new(blk, verify_ctx).verify!
     end
 
     def find(id)
@@ -57,8 +57,8 @@ module CKB
       @logger ||= CKB.get_logger(self.class.name)
     end
 
-    def block_ctx_verifier
-      @block_ctx_verifier ||= Verifiable::BlockCtxVerifier.new(Verifiable::Context.new(self))
+    def verify_ctx
+      @verify_ctx ||= Verifiable::Context.new(self)
     end
 
   end
