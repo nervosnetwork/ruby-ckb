@@ -6,7 +6,6 @@ module CKB
       end
 
       def serialize!
-        verify!
         to_proto
       end
     end

@@ -28,6 +28,8 @@ module CKB
         else # new block on some other forks
           # TODO: add block and apply fork choice rules
         end
+
+        @store.commit
       else # there's gap between new blk and our heads
         # TODO: fetch blocks. should just raise exceptions here
       end
@@ -37,7 +39,13 @@ module CKB
 
     def verify_block!(blk)
       blk.verify!
-      Verifiable::BlockCtxVerifier.new(blk, verify_ctx).verify!
+
+      ctx = Verifiable::Context.new(self)
+      Verifiable::BlockCtxVerifier.new(blk, ctx).verify!
+    end
+
+    def p1cs(h=@head.hash)
+      @store.get_p1cs(h)
     end
 
     def find(id)
@@ -55,10 +63,6 @@ module CKB
 
     def logger
       @logger ||= CKB.get_logger(self.class.name)
-    end
-
-    def verify_ctx
-      @verify_ctx ||= Verifiable::Context.new(self)
     end
 
   end

@@ -11,6 +11,10 @@ module CKB
         txid + Util.int_to_big_endian(index)
       end
 
+      def to_s
+        "<OutPoint txid=0x#{Util.encode_hex(txid)[0,8]} index=#{index}>"
+      end
+
     end
   end
 end

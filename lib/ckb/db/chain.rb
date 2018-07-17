@@ -14,8 +14,12 @@ module CKB
       def put_ckb_core_block(blk)
         @db.put key(blk.header), blk.header.serialize!
         @db.put key(blk), blk.serialize!
+
+        blk.transactions.each do |tx|
+          @db.put key(tx),tx.serialize!
+        end
+
         update_p1cs blk
-        commit
       end
 
       def put_ckb_core_header(hdr)
@@ -34,6 +38,21 @@ module CKB
 
       def get_header(h)
         get hdr_key(h)
+      rescue
+        nil
+      end
+
+      def get_transaction(h)
+        get tx_key(h)
+      rescue
+        nil
+      end
+
+      def get_p1cs(h)
+        root_hash = h == SHA3::NULL ?
+          ADT::MerklePatriciaTrie::BLANK_ROOT :
+          @db.get(p1cs_key(h))
+        ADT::MerklePatriciaTrie.new(@db, root_hash)
       rescue
         nil
       end
@@ -99,15 +118,8 @@ module CKB
         txid = tx.hash
         tx.outputs.each_with_index do |_, i|
           op = Core::OutPoint.new(txid: txid, index: i)
-          p1cs[op.to_key] = EMPTY_BYTE
+          p1cs[op.to_key] = "\x01"
         end
-      end
-
-      def get_p1cs(h)
-        root_hash = h == SHA3::NULL ?
-          ADT::MerklePatriciaTrie::BLANK_ROOT :
-          @db.get(p1cs_key(h))
-        ADT::MerklePatriciaTrie.new(@db, root_hash)
       end
 
       def p1cs_key(s)
