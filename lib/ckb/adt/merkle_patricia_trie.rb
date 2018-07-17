@@ -106,7 +106,6 @@ module CKB
       #
       def delete(key)
         raise ArgumentError, "key must be string" unless key.instance_of?(String)
-        raise ArgumentError, "max key size is 32" if key.size > 32
 
         @root_node = delete_and_delete_storage(
           @root_node,
@@ -219,8 +218,6 @@ module CKB
         raise ArgumentError, "node must be an array" unless node.instance_of?(Array)
 
         node_proto = ValueNode.new(value: node).to_proto
-        return node if node_proto.size < 32
-
         hashkey = SHA3.digest(node_proto).to_s
         @db.put hashkey, node_proto
         hashkey

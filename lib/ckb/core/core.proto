@@ -9,7 +9,7 @@ message Recipient {
 }
 
 message OutPoint {
-  bytes hash = 1;
+  bytes txid = 1;
   uint32 index = 2;
 }
 

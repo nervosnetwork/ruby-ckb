@@ -7,8 +7,8 @@ module CKB
           new(previous_output: OutPoint::NULL, unlock: Util.int_to_big_endian(blknum))
         end
 
-        def build(ophash, opindex, unlock)
-          op = OutPoint.build(hash: ophash, index: opindex)
+        def build(txid, index, unlock)
+          op = OutPoint.build(txid: txid, index: index)
           new(previous_output: op, unlock: unlock)
         end
       end

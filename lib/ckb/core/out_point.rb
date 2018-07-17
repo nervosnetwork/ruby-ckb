@@ -1,16 +1,16 @@
 module CKB
   module Core
     class OutPoint
-      NULL = new(hash: '', index: 0).freeze
+      NULL = new(txid: '', index: 0).freeze
 
       def self.build(*args)
-        new(*args).tap do |op|
-          op.validate!
-        end
+        new(*args)
       end
 
-      def validate!
+      def to_key
+        txid + Util.int_to_big_endian(index)
       end
+
     end
   end
 end

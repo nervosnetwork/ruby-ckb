@@ -14,17 +14,26 @@ module CKB
     end
 
     def test_add_block
+      assert_equal 1, @chain.store.send(:get_p1cs, @chain.head.hash).size
+
       blk = Core::Block.build_candidate(@chain.genesis.header, SHA3.random.to_s, timestamp: Time.now.to_i+1)
       assert_equal 1, blk.number
 
       assert_equal 0, @chain.head.number
       @chain.add_block!(blk)
       assert_equal 1, @chain.head.number
+      assert_equal 2, @chain.store.send(:get_p1cs, @chain.head.hash).size
 
-      blk = Core::Block.build_candidate(blk.header, SHA3.random.to_s, timestamp: Time.now.to_i+2)
+      one_third_reward = Economics.block_reward(1) / 3
+      tx = Core::Transaction.build_transfer([[blk.transactions[0].hash, 0]], [one_third_reward, one_third_reward, one_third_reward])
+      blk = Core::Block.build_candidate(blk.header, SHA3.random.to_s, timestamp: Time.now.to_i+2, transactions: [tx])
       @chain.add_block!(blk)
-      assert_equal 2, @chain.head.number
       assert_equal 0, @chain.genesis.number
+      assert_equal 2, @chain.head.number
+      # consumed 1 cellbase p1 cell
+      # added 3 new p1 cells
+      # added 1 cellbase p1 cell
+      assert_equal 5, @chain.store.send(:get_p1cs, @chain.head.hash).size
     end
 
     def test_find_block_by_hash

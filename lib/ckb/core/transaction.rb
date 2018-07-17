@@ -11,6 +11,12 @@ module CKB
           build(inputs: [input], outputs: [output])
         end
 
+        def build_transfer(outpoints, capacities)
+          inputs = outpoints.map {|txid, index| CellInput.build(txid, index, '') }
+          outputs = capacities.map {|capacity| CellOutput.build(capacity, SHA3.random.to_s) }
+          build(inputs: inputs, outputs: outputs)
+        end
+
         def build(*args)
           new(*args)
         end

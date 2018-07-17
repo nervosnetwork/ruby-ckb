@@ -10,13 +10,13 @@ module CKB
       def test_genesis_block
         assert_equal 0, @genesis.header.number
         assert_equal SHA3::NULL, @genesis.header.parent_hash
-        assert_equal [], @genesis.transactions
+        assert_equal 1, @genesis.transactions.size
       end
 
       def test_header_delegation
         assert_equal 0, @genesis.number
         assert_equal SHA3::NULL, @genesis.parent_hash
-        assert_equal ADT::MerkleTree::EMPTY_ROOT, @genesis.txroot
+        refute_equal ADT::MerkleTree::EMPTY_ROOT, @genesis.txroot
       end
 
       def test_build_block

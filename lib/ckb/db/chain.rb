@@ -14,6 +14,8 @@ module CKB
       def put_ckb_core_block(blk)
         @db.put key(blk.header), blk.header.serialize!
         @db.put key(blk), blk.serialize!
+        update_p1cs blk
+        commit
       end
 
       def put_ckb_core_header(hdr)
@@ -73,6 +75,44 @@ module CKB
       end
 
       private
+
+      def update_p1cs(blk)
+        p1cs = get_p1cs blk.parent_hash
+        txs = blk.transactions.to_a
+
+        add_p1_cells p1cs, txs.shift # cellbase
+        txs.each do |tx|
+          remove_p1_cells p1cs, tx
+          add_p1_cells p1cs, tx
+        end
+
+        @db.put p1cs_key(blk.hash), p1cs.root_hash
+      end
+
+      def remove_p1_cells(p1cs, tx)
+        tx.inputs.each do |input|
+          p1cs.delete input.previous_output.to_key
+        end
+      end
+
+      def add_p1_cells(p1cs, tx)
+        txid = tx.hash
+        tx.outputs.each_with_index do |_, i|
+          op = Core::OutPoint.new(txid: txid, index: i)
+          p1cs[op.to_key] = EMPTY_BYTE
+        end
+      end
+
+      def get_p1cs(h)
+        root_hash = h == SHA3::NULL ?
+          ADT::MerklePatriciaTrie::BLANK_ROOT :
+          @db.get(p1cs_key(h))
+        ADT::MerklePatriciaTrie.new(@db, root_hash)
+      end
+
+      def p1cs_key(s)
+        "p1cs:#{s}"
+      end
 
       def hdr_key(s)
         "hdr:#{s}"

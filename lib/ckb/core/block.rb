@@ -4,7 +4,10 @@ module CKB
 
       class <<self
         def genesis
-          new(header: Header.genesis)
+          new(header: Header.genesis).tap do |blk|
+            cellbase = Transaction.build_cellbase 0, SHA3::NULL
+            blk.transactions = [cellbase]
+          end
         end
 
         def build_candidate(parent_header, lockhash, timestamp: Time.now.to_i, transactions: [])

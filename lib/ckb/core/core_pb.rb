@@ -9,7 +9,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     optional :lock, :bytes, 2
   end
   add_message "CKB.Core.OutPoint" do
-    optional :hash, :bytes, 1
+    optional :txid, :bytes, 1
     optional :index, :uint32, 2
   end
   add_message "CKB.Core.CellInput" do
