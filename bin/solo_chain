@@ -9,6 +9,7 @@ def solo_chain
   CKB::Logger.info '*** solo mining private chain'
 
   node = Node.new
+  sleep 1
   node.run
 end
 

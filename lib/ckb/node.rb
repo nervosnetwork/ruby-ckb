@@ -12,7 +12,7 @@ module CKB
 
       loop do
         parent_header = @chain.head.header
-        blk = Core::Block.build_candidate parent_header, cellbase_lockhash, []
+        blk = Core::Block.build_candidate parent_header, cellbase_lockhash
 
         # mine on new candidate
         @miner.mine parent_header, blk.header
