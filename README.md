@@ -6,28 +6,10 @@ Nervos CKB (Common Knowledge Base) is a permissionless blockchain, the secure st
 
 ## TODO
 
-- [ ] Chain
-    - [ ] Tree
-        - [ ] fork management
-    - [ ] Block
-        - [ ] Header
-            - [ ] Schema
-            - [ ] Validation
-        - [ ] Schema
-        - [ ] Validation
-    - [ ] Transaction
-        - [ ] Schema
-        - [ ] Validation
-    - [ ] Transaction Pool
-    - [ ] Cell
-    - [ ] VM
-- [ ] Miner
-    - [ ] Dummy Miner
-    - [ ] Cuckoo Miner
-- [ ] Network
-    - [ ] P2P transport
-    - [ ] Wire protocol
-- [ ] RPC Server
+Scenarios:
+
+- Token issue and transfer
+- State channel
 
 ## Installation
 
