@@ -7,15 +7,15 @@ module CKB
           new(header: Header.genesis)
         end
 
-        def build_candidate(parent_header, lockhash, txs)
+        def build_candidate(parent_header, lockhash, timestamp: Time.now.to_i, transactions: [])
           raise ArgumentError, "parent_header (#{parent_header}) must be Header!" unless parent_header.instance_of?(Header)
-          raise ArgumentError, "txs (#{txs}) must be an array!" unless txs.instance_of?(Array)
+          raise ArgumentError, "transactions (#{transactions}) must be an array!" unless transactions.instance_of?(Array)
 
           number = parent_header.number + 1
           cellbase = Transaction.build_cellbase number, lockhash
-          txs.unshift cellbase
+          transactions.unshift cellbase
 
-          build(parent_header.hash, number, transactions: txs)
+          build(parent_header.hash, number, timestamp: timestamp, transactions: transactions)
         end
 
         def build(parent_hash, number, difficulty: EMPTY_BYTE, timestamp: Time.now.to_i, nonce: 0, mix_hash: SHA3::NULL, transactions: [])

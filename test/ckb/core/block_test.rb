@@ -29,7 +29,7 @@ module CKB
 
       def test_build_candidate
         lockhash = SHA3.random.to_s
-        blk = Block.build_candidate(@genesis.header, lockhash, [])
+        blk = Block.build_candidate(@genesis.header, lockhash)
         assert_equal Header::VERSION, blk.version
         assert_equal @genesis.hash, blk.parent_hash
         assert_equal 1, blk.number

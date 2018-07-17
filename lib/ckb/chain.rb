@@ -1,7 +1,7 @@
 module CKB
   # Manages the block DAG
   class Chain
-    attr_reader :head, :genesis, :store, :fork
+    attr_reader :head, :genesis, :store, :fork, :p1cs
 
     def initialize
       @head = @genesis = Core::Block.genesis
@@ -13,6 +13,8 @@ module CKB
       @fork = DB::Fork.new(DB::Memory.new)
       @fork.put @head
       @fork.commit
+
+      @p1cs = ADT::MerklePatriciaTrie.new(DB::Memory.new)
     end
 
     def add_block!(blk)

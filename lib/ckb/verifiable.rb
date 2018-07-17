@@ -4,6 +4,8 @@ require_relative 'verifiable/methods'
 # verify integrity of types
 require_relative 'verifiable/header_verifier'
 require_relative 'verifiable/block_verifier'
+require_relative 'verifiable/transaction_verifier'
+require_relative 'verifiable/cell_output_verifier'
 
 # verify types in context
 require_relative 'verifiable/context'

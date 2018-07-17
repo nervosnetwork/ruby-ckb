@@ -33,7 +33,7 @@ module CKB
       private
 
       def _verifiers
-        @_verifiers ||= [ ]
+        @_verifiers ||= [ Verifiable::TransactionVerifier.new(self) ]
       end
 
     end
