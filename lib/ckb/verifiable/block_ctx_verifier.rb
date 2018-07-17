@@ -23,13 +23,17 @@ module CKB
           end
         end
 
-        #verify_capacity_invariant!(txs)
+        verify_capacity_invariant!(txs)
       end
 
       def verify_capacity_invariant!(txs)
-        consumed_outputs = txs
+        output_capacity = txs.map {|tx| tx.outputs.map(&:capacity).sum }.sum
+        input_capacity = txs[1..-1]
           .map {|tx| tx.inputs.map {|input| @ctx.get_output_cell(input.previous_output) } }
           .inject([], &:+)
+          .map(&:capacity)
+          .sum
+        raise UnbalancedCapacity, "output capacity must be less or equal than input capacity plus block reward" unless output_capacity <= input_capacity + Economics.block_reward(@blk.number)
       end
 
       def verify_cellbase!(tx)
