@@ -10,6 +10,7 @@ module CKB
       def verify!
         raise InvalidHeader, "header parent 0x#{Util.encode(@target.parent_hash)[0,8]} doesn't exist" if parent.nil?
         raise InvalidHeader, "timestamp must be larger than its parent" if @target.timestamp <= parent.timestamp
+        raise InvalidHeader, "timestamp is too far in future" if @target.timestamp > Time.now.to_i + 300
         raise InvalidHeader, "block number must advance by 1" if @target.number != parent.number+1
         # TODO: difficulty verification / InvalidPoW
         # TODO: pow verification / InvalidPoW
